@@ -5,7 +5,7 @@ interface IProduct {
     image: string;
     category: string;
     description: string;
-    price: number | null;
+    price: number;
   }
 
 interface IImage {
