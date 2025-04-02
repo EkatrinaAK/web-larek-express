@@ -1,6 +1,8 @@
 import { NextFunction, Request, Response } from "express";
 import Product from "../models/product";
-import { faker } from "@faker-js/faker";
+import { faker, ne } from "@faker-js/faker";
+import BadRequestError from "../errors/bad-request-error";
+
 
 export const orderProduct = async (
   req: Request,
@@ -9,34 +11,28 @@ export const orderProduct = async (
 ) => {
   const { total, items } = req.body;
 
-  try {
-    const products = await Product.find({ _id: { $in: items } });
+  const products = await Product.find({ _id: { $in: items } });
 
-    const filteredProducts = products.filter(
-      (product) => product.price !== null
-    );
+  const filteredProducts = products.filter((product) => product.price !== null);
 
-    if (products.length === 0) {
-      throw new Error("Empty order");
-    }
-
-    if (filteredProducts.length !== items.length) {
-      throw new Error("Wrong order");
-    }
-
-    const totalSum = filteredProducts.reduce(
-      (acc, product) => acc + product.price,
-      0
-    );
-
-    if (totalSum !== total) {
-      throw new Error("Wrong total sum");
-    }
-
-    return res.status(200).send({ id: faker.string.uuid(), total: totalSum });
-  } catch (err) {
-    console.error(err);
+  if (products.length === 0) {
+    throw new BadRequestError("Empty cart");
   }
+
+  if (filteredProducts.length !== items.length) {
+    throw new BadRequestError("Wrong order");
+  }
+
+  const totalSum = filteredProducts.reduce(
+    (acc, product) => acc + product.price,
+    0
+  );
+
+  if (totalSum !== total) {
+    throw new BadRequestError("Wrong total sum");
+  }
+
+  return res.status(200).send({ id: faker.string.uuid(), total: totalSum });
 };
 
 export default orderProduct;
