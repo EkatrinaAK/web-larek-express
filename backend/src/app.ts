@@ -6,6 +6,8 @@ import path from "path";
 import { DB_ADDRESS, PORT } from "./config";
 import errorHandler from "./middeleweres/error-handler";
 import { errors } from "celebrate";
+import {requestLogger,errorLogger} from "./middeleweres/logger";
+
 
 const cors = require("cors");
 const bodyParser = require("body-parser");
@@ -16,11 +18,14 @@ app.use(bodyParser.json());
 
 mongoose.connect(DB_ADDRESS);
 
+app.use(requestLogger);
+
 app.use(productsRouter);
 app.use(orderRouter);
 
 app.use(express.static(path.join(__dirname, "public")));
 
+app.use(errorLogger);
 app.use(errors());
 app.use(errorHandler);
 

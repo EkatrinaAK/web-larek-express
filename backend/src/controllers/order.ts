@@ -1,13 +1,12 @@
-import { NextFunction, Request, Response } from "express";
+import {  Request, Response } from "express";
 import Product from "../models/product";
-import { faker, ne } from "@faker-js/faker";
+import { faker } from "@faker-js/faker";
 import BadRequestError from "../errors/bad-request-error";
 
 
 export const orderProduct = async (
   req: Request,
-  res: Response,
-  next: NextFunction
+  res: Response
 ) => {
   const { total, items } = req.body;
 
