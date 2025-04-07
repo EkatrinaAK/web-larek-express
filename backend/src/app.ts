@@ -6,8 +6,7 @@ import path from "path";
 import { DB_ADDRESS, PORT } from "./config";
 import errorHandler from "./middeleweres/error-handler";
 import { errors } from "celebrate";
-import {requestLogger,errorLogger} from "./middeleweres/logger";
-
+import { requestLogger, errorLogger } from "./middeleweres/logger";
 
 const cors = require("cors");
 const bodyParser = require("body-parser");
@@ -28,7 +27,6 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(errorLogger);
 app.use(errors());
 app.use(errorHandler);
-
 
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);
