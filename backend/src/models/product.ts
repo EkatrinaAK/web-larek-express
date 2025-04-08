@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 interface IProduct {
   title: string;
@@ -16,7 +16,7 @@ interface IImage {
 const imageSchema = new mongoose.Schema<IImage>({
   fileName: {
     type: String,
-    required: [true, "Укажите путь к файлу"],
+    required: [true, 'Укажите путь к файлу'],
   },
 
   originalName: {
@@ -36,7 +36,7 @@ const productSchema = new mongoose.Schema<IProduct>({
   image: imageSchema,
   category: {
     type: String,
-    required: [true, "Поле должно быть заполнено"],
+    required: [true, 'Поле должно быть заполнено'],
   },
   description: {
     type: String,
@@ -46,4 +46,4 @@ const productSchema = new mongoose.Schema<IProduct>({
     default: null,
   },
 });
-export default mongoose.model<IProduct>("product", productSchema);
+export default mongoose.model<IProduct>('product', productSchema);

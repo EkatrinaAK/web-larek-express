@@ -1,4 +1,4 @@
-import { Joi } from "celebrate";
+import { Joi } from 'celebrate';
 
 export const validateProduct = Joi.object({
   title: Joi.string().min(2).max(30).required(),

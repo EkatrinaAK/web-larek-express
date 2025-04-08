@@ -1,12 +1,12 @@
-import { ErrorRequestHandler, Request, Response } from "express";
+import { ErrorRequestHandler, Request, Response } from 'express';
 
 const errorHandler: ErrorRequestHandler = (
   err,
-  req: Request,
-  res: Response
+  _: Request,
+  res: Response,
 ) => {
   const statusCode = err.statusCode || 500;
-  const message = err.message || "Internal Server Error";
+  const message = err.message || 'Internal Server Error';
 
   return res.status(statusCode).send({ message });
 };
