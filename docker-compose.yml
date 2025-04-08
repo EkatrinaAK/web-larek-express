@@ -10,6 +10,8 @@ services:
   mongo:
     image: mongo
     restart: always
+    ports:
+      - 27017:27017
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
@@ -26,7 +28,7 @@ services:
       - backend/.env
     volumes:
       - ./backend/src:/app/src
-      - public:/app/src/public
+      - ./backend/src/public:/app/src/public
     ports:
       - 3000:3000
     networks:
